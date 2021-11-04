@@ -1,0 +1,25 @@
+version: "3.3"
+services:
+  asir_bind9:
+    container_name: asir_bind9
+    image: internetsystemsconsortium/bind9:9.11
+    networks:
+      br02:
+        ipv4_address: 10.0.2.250
+    volumes:
+      - conf:/etc/bind
+  asir_cliente:
+    container_name: asir_cliente
+    image: ubuntu
+    networks:
+      - br02
+    stdin_open: true 
+    tty: true        
+    dns:
+      - 10.0.2.250
+volumes:
+  conf:
+    external: true 
+networks:
+  br02: 
+    external: true
